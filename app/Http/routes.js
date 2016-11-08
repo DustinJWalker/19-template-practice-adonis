@@ -23,5 +23,10 @@ Route.get('/', function* (request, response){
 
   const apiUrl = yield fetch('http://json-data.herokuapp.com/forms');
   const formInputs = yield apiUrl.json();
-  yield.response.sendView('form', {formInputs});
-})
+  yield response.sendView('form', {formInputs});
+});
+
+Route.post('/', function*(request, response){
+  const inputs = request.except('_csrf');
+  yield response.sendView('results', { inputs });
+});
