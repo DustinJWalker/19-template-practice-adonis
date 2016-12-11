@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Form</title>
+  </head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.2.3/css/bulma.css" media="screen" title="no title">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+  <body>
+    <section class="section">
+      <div class="container">
+        <form @submit.prevent="submitForm(formData)" class="panel">
+
+        <div class="panel">
+          <p class="panel-heading title">
+            Sign Up For My Web App
+          </p>
+
+          <div class="panel-block">
+            {% for input in formInputs %}
+              <p class="control has-icon has-icon-left">
+                {% if input.type === 'select' %}
+                  <span class="select is-fullwidth">
+                    <select name="{{ input.id }}">
+                      <option value="">{{ input.label }}</option>
+                      {% for option in input.options %}
+                        <option>{{ option.label }}</option>
+                      {% endfor %}
+                    </select>
+                  </span>
+
+                {% elif input.type === 'textarea' %}
+                  <i class="fa" class="{{ input.icon }}" aria-hidden="true"></i>
+                  <textarea class="textarea input" placeholder="{{ input.label }}" v-model="formData[input.id]"></textarea>
+                {% else %}
+                  <i class="fa" class="{{ input.icon }}" aria-hidden="true"></i>
+                  <input class="input" type="text" placeholder="{{ input.label }}" v-model="formData[input.id]">
+                {% endif %}
+              </p>
+            {% endfor %}
+          </div>
+
+          <p class="panel-block">
+            <button class="button is-fullwidth is-primary">Submit</button>
+          </p>
+
+        </div>
+      </form>
+
+      </div>
+    </section>
+  </body>
+</html>
